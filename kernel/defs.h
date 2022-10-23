@@ -9,6 +9,10 @@ struct pipe;
 struct proc;
 struct spinlock;
 struct stat;
+/* The following code is added by Justine George JXG210092
+ */
+struct pstat;
+/* End of code added */
 
 // bio.c
 void            binit(void);
@@ -109,6 +113,11 @@ void            userinit(void);
 int             wait(void);
 void            wakeup(void*);
 void            yield(void);
+/* The following code is added by Justine George JXG210092
+ */
+int             settickets(int);
+int             getpinfo(struct pstat*);
+/* End of code added */
 
 // swtch.S
 void            swtch(struct context**, struct context*);

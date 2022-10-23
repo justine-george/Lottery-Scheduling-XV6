@@ -73,10 +73,10 @@ struct proc {
   int killed;                  // If non-zero, have been killed
   struct file *ofile[NOFILE];  // Open files
   struct inode *cwd;           // Current directory
-  char name[16];               // Process name (debugging)
-  
+  char name[16];               // Process name (debugging) 
   /* The following code is added by Justine George JXG210092
    */
+  int inuse;                   // Whether the process is in use (1 or 0)
   int tickets;                 // Number of tickets assigned
   int ticks;                   // Tracks number of ticks used
   /* End of code added */

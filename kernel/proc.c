@@ -5,6 +5,11 @@
 #include "x86.h"
 #include "proc.h"
 #include "spinlock.h"
+/* The following code is added by Justine George JXG210092
+ */
+#include "pstat.h"
+#include "rand.h"
+/* End of code added */
 
 struct {
   struct spinlock lock;
@@ -18,6 +23,7 @@ extern void forkret(void);
 extern void trapret(void);
 
 static void wakeup1(void *chan);
+
 
 void
 pinit(void)
@@ -98,6 +104,12 @@ userinit(void)
   p->cwd = namei("/");
 
   p->state = RUNNABLE;
+  /* The following code is added by Justine George JXG210092
+   */
+  p->inuse = 0;
+  p->tickets = 1;
+  p->ticks = 0;
+  /* End of code added */
   release(&ptable.lock);
 }
 
@@ -155,6 +167,13 @@ fork(void)
  
   pid = np->pid;
   np->state = RUNNABLE;
+  
+  /* The following code is added by Justine George JXG210092
+   */
+  np->tickets = proc->tickets;
+  np->ticks = 0;
+  /* End of code added */
+  
   safestrcpy(np->name, proc->name, sizeof(proc->name));
   return pid;
 }
@@ -256,6 +275,12 @@ void
 scheduler(void)
 {
   struct proc *p;
+  
+  /* The following code is added by Justine George JXG210092
+   */
+  int counter, totalTickets;
+  long winner;
+  /* End of code added */
 
   for(;;){
     // Enable interrupts on this processor.
@@ -263,9 +288,30 @@ scheduler(void)
 
     // Loop over process table looking for process to run.
     acquire(&ptable.lock);
+    
+    /* The following code is added by Justine George JXG210092
+     */
+    counter = 0;
+    totalTickets = 0;
+    winner = 0;
+    
+    for(p = ptable.proc; p < &ptable.proc[NPROC]; p++)
+      if (p->state == RUNNABLE)
+        totalTickets += p->tickets;
+
+    winner = getrand(totalTickets); 
+    /* End of code added */
+
     for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
       if(p->state != RUNNABLE)
         continue;
+      
+      /* The following code is added by Justine George JXG210092
+       */
+      counter += p->tickets;
+      if(counter < winner)
+        continue;
+      /* End of code added */
 
       // Switch to chosen process.  It is the process's job
       // to release ptable.lock and then reacquire it
@@ -273,12 +319,23 @@ scheduler(void)
       proc = p;
       switchuvm(p);
       p->state = RUNNING;
+      
+      /* The following code is added by Justine George JXG210092
+       */
+      p->inuse = 1;
+      /* End of code added */
+      
       swtch(&cpu->scheduler, proc->context);
       switchkvm();
 
       // Process is done running for now.
       // It should have changed its p->state before coming back.
       proc = 0;
+
+      /* The following code is added by Justine George JXG210092
+       */
+      break;      
+      /* End of code added */
     }
     release(&ptable.lock);
 
@@ -311,6 +368,12 @@ yield(void)
 {
   acquire(&ptable.lock);  //DOC: yieldlock
   proc->state = RUNNABLE;
+  
+  /* The following code is added by Justine George JXG210092
+   */
+  proc->ticks++;
+  /* End of code added */
+
   sched();
   release(&ptable.lock);
 }
@@ -396,6 +459,7 @@ kill(int pid)
   for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
     if(p->pid == pid){
       p->killed = 1;
+      
       // Wake process from sleep if necessary.
       if(p->state == SLEEPING)
         p->state = RUNNABLE;
@@ -443,4 +507,32 @@ procdump(void)
   }
 }
 
+/* The following code is added by Justine George JXG210092
+ */
+// set the number of tickets of the current running process
+int
+settickets(int n)
+{
+  acquire(&ptable.lock);
+  proc->tickets = n;
+  release(&ptable.lock);
+  return 0; 
+}
 
+// get process statistics
+int
+getpinfo(struct pstat *ps)
+{
+  int i;
+  struct proc *p;
+  acquire(&ptable.lock);
+  for(i = 0, p = ptable.proc; p < &ptable.proc[NPROC]; i++, p++) {
+    ps->inuse[i] = p->inuse;
+    ps->tickets[i] = p->tickets;
+    ps->pid[i] = p->pid;
+    ps->ticks[i] = p->ticks;
+  }
+  release(&ptable.lock);
+  return 0;
+}
+/* End of code added */

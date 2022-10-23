@@ -27,7 +27,7 @@ CLEAN	Makefile	/^CLEAN := $(KERNEL_CLEAN) $(USER_CLEAN) $(TOOLS_CLEAN) \\$/;"	m
 COM1	kernel/uart.c	14;"	d	file:
 CONSOLE	kernel/file.h	43;"	d
 CPP	Makefile	/^CPP := cpp$/;"	m
-CPUS	Makefile	/^CPUS := 2$/;"	m
+CPUS	Makefile	/^CPUS := 1$/;"	m
 CR0_AM	kernel/mmu.h	37;"	d
 CR0_CD	kernel/mmu.h	39;"	d
 CR0_EM	kernel/mmu.h	32;"	d
@@ -143,7 +143,10 @@ LEVEL	kernel/lapic.c	24;"	d	file:
 LINT0	kernel/lapic.c	33;"	d	file:
 LINT1	kernel/lapic.c	34;"	d	file:
 LIST	user/sh.c	11;"	d	file:
+LOWER_MASK	kernel/rand.c	37;"	d	file:
+M	kernel/rand.c	34;"	d	file:
 MASKED	kernel/lapic.c	36;"	d	file:
+MATRIX_A	kernel/rand.c	35;"	d	file:
 MAXARG	include/param.h	17;"	d
 MAXARGS	user/sh.c	14;"	d	file:
 MAXFILE	include/fs.h	23;"	d
@@ -154,12 +157,13 @@ MPIOAPIC	kernel/mp.h	53;"	d
 MPIOINTR	kernel/mp.h	54;"	d
 MPLINTR	kernel/mp.h	55;"	d
 MPPROC	kernel/mp.h	51;"	d
+N	kernel/rand.c	33;"	d	file:
 N	user/forktest.c	8;"	d	file:
 NBUF	include/param.h	11;"	d
 NCPU	include/param.h	8;"	d
 NDEV	include/param.h	13;"	d
 NDIRECT	include/fs.h	21;"	d
-NELEM	kernel/defs.h	173;"	d
+NELEM	kernel/defs.h	182;"	d
 NFILE	include/param.h	10;"	d
 NINDIRECT	include/fs.h	22;"	d
 NINODE	include/param.h	12;"	d
@@ -191,6 +195,7 @@ PGSIZE	kernel/mmu.h	119;"	d
 PHYSTOP	include/param.h	16;"	d
 PIPE	user/sh.c	10;"	d	file:
 PIPESIZE	kernel/pipe.c	10;"	d	file:
+PROC	user/processesinuse.c	8;"	d	file:
 PTE_A	kernel/mmu.h	134;"	d
 PTE_ADDR	kernel/mmu.h	140;"	d
 PTE_D	kernel/mmu.h	135;"	d
@@ -206,6 +211,7 @@ PTXSHIFT	kernel/mmu.h	122;"	d
 QEMU	Makefile	/^QEMU := $(shell if which qemu 1> \/dev\/null 2> \/dev\/null; \\$/;"	m
 QEMUGDB	Makefile	/^QEMUGDB := $(shell if $(QEMU) -help | grep -q '^-gdb'; \\$/;"	m
 QEMUOPTS	Makefile	/^QEMUOPTS := -hdb fs.img xv6.img -smp $(CPUS)$/;"	m
+RAND_MAX	kernel/rand.c	47;"	d	file:
 REDIR	user/sh.c	9;"	d	file:
 REG_ID	kernel/ioapic.c	11;"	d	file:
 REG_TABLE	kernel/ioapic.c	13;"	d	file:
@@ -274,6 +280,7 @@ SYS_exit	include/syscall.h	6;"	d
 SYS_fork	include/syscall.h	5;"	d
 SYS_fstat	include/syscall.h	17;"	d
 SYS_getpid	include/syscall.h	22;"	d
+SYS_getpinfo	include/syscall.h	29;"	d
 SYS_kill	include/syscall.h	12;"	d
 SYS_link	include/syscall.h	18;"	d
 SYS_mkdir	include/syscall.h	19;"	d
@@ -282,6 +289,7 @@ SYS_open	include/syscall.h	14;"	d
 SYS_pipe	include/syscall.h	8;"	d
 SYS_read	include/syscall.h	10;"	d
 SYS_sbrk	include/syscall.h	23;"	d
+SYS_settickets	include/syscall.h	28;"	d
 SYS_sleep	include/syscall.h	24;"	d
 SYS_unlink	include/syscall.h	16;"	d
 SYS_uptime	include/syscall.h	25;"	d
@@ -289,6 +297,12 @@ SYS_wait	include/syscall.h	7;"	d
 SYS_write	include/syscall.h	9;"	d
 TCCR	kernel/lapic.c	38;"	d	file:
 TDCR	kernel/lapic.c	39;"	d	file:
+TEMPERING_MASK_B	kernel/rand.c	40;"	d	file:
+TEMPERING_MASK_C	kernel/rand.c	41;"	d	file:
+TEMPERING_SHIFT_L	kernel/rand.c	45;"	d	file:
+TEMPERING_SHIFT_S	kernel/rand.c	43;"	d	file:
+TEMPERING_SHIFT_T	kernel/rand.c	44;"	d	file:
+TEMPERING_SHIFT_U	kernel/rand.c	42;"	d	file:
 TICR	kernel/lapic.c	37;"	d	file:
 TIMER	kernel/lapic.c	29;"	d	file:
 TIMER_16BIT	kernel/timer.c	22;"	d	file:
@@ -326,6 +340,7 @@ T_STACK	include/traps.h	19;"	d
 T_SYSCALL	include/traps.h	30;"	d
 T_TSS	include/traps.h	17;"	d
 UNUSED	kernel/proc.h	/^enum procstate { UNUSED, EMBRYO, SLEEPING, RUNNABLE, RUNNING, ZOMBIE };$/;"	e	enum:procstate
+UPPER_MASK	kernel/rand.c	36;"	d	file:
 USERTOP	include/param.h	15;"	d
 USER_ASFLAGS	user/makefile.mk	/^USER_ASFLAGS := $(USER_CFLAGS)$/;"	m
 USER_BINS	Makefile	/^USER_BINS := $(notdir $(USER_PROGS))$/;"	m
@@ -351,6 +366,7 @@ _MMU_H_	kernel/mmu.h	2;"	d
 _MP_H_	kernel/mp.h	2;"	d
 _PARAM_H_	include/param.h	2;"	d
 _PROC_H_	kernel/proc.h	2;"	d
+_PSTAT_H_	include/pstat.h	4;"	d
 _SPINLOCK_H_	kernel/spinlock.h	2;"	d
 _STAT_H_	include/stat.h	2;"	d
 _SYSCALL_H_	include/syscall.h	2;"	d
@@ -416,6 +432,18 @@ bzero	kernel/fs.c	/^bzero(int dev, int bno)$/;"	f	file:
 cat	user/cat.c	/^cat(int fd)$/;"	f
 cgaputc	kernel/console.c	/^cgaputc(int c)$/;"	f	file:
 chan	kernel/proc.h	/^  void *chan;                  \/\/ If non-zero, sleeping on chan$/;"	m	struct:proc
+check	user/default_tickets.c	6;"	d	file:
+check	user/forktickets.c	5;"	d	file:
+check	user/getpinfo.c	6;"	d	file:
+check	user/high_sleep.c	5;"	d	file:
+check	user/high_tickets.c	5;"	d	file:
+check	user/processesinuse.c	5;"	d	file:
+check	user/random.c	5;"	d	file:
+check	user/setticket.c	6;"	d	file:
+check	user/stress_equal.c	5;"	d	file:
+check	user/stress_manylow.c	5;"	d	file:
+check	user/switch_tickets.c	4;"	d	file:
+checkVariance	user/stress_equal.c	/^int checkVariance(int *pid_chds, struct pstat *before, struct pstat *after, int numprocs)$/;"	f
 checksum	kernel/mp.h	/^  uchar checksum;               \/\/ all bytes must add up to 0$/;"	m	struct:mp
 checksum	kernel/mp.h	/^  uchar checksum;               \/\/ all bytes must add up to 0$/;"	m	struct:mpconf
 cinit	kernel/main.c	/^cinit(void) {$/;"	f	file:
@@ -423,6 +451,9 @@ cli	include/x86.h	/^cli(void)$/;"	f
 cmd	user/sh.c	/^  struct cmd *cmd;$/;"	m	struct:backcmd	typeref:struct:backcmd::cmd	file:
 cmd	user/sh.c	/^  struct cmd *cmd;$/;"	m	struct:redircmd	typeref:struct:redircmd::cmd	file:
 cmd	user/sh.c	/^struct cmd {$/;"	s	file:
+compare	user/high_sleep.c	/^void compare(int pid_low, int pid_high, struct pstat *before, struct pstat *after)$/;"	f
+compare	user/high_tickets.c	/^void compare(int pid_low, int pid_high, struct pstat *before, struct pstat *after)$/;"	f
+compare	user/switch_tickets.c	/^int compare(int low_pid, int high_pid, struct pstat *st)$/;"	f
 concreate	user/usertests.c	/^concreate(void)$/;"	f
 cons	kernel/console.c	/^} cons;$/;"	v	typeref:struct:__anon6	file:
 consoleinit	kernel/console.c	/^consoleinit(void)$/;"	f
@@ -572,8 +603,11 @@ gdt	kernel/proc.h	/^  struct segdesc gdt[NSEGS];   \/\/ x86 global descriptor ta
 gdtdesc	kernel/bootasm.S	/^gdtdesc:$/;"	l
 gdtdesc	kernel/bootother.S	/^gdtdesc:$/;"	l
 gdtdesc	kernel/multiboot.S	/^gdtdesc:$/;"	l
+genrand	kernel/rand.c	/^genrand()$/;"	f
 getcallerpcs	kernel/spinlock.c	/^getcallerpcs(void *v, uint pcs[])$/;"	f
 getcmd	user/sh.c	/^getcmd(char *buf, int nbuf)$/;"	f
+getpinfo	kernel/proc.c	/^getpinfo(struct pstat *ps)$/;"	f
+getrand	kernel/rand.c	/^long getrand(long max) {$/;"	f
 gets	user/ulib.c	/^gets(char *buf, int max)$/;"	f
 gettoken	user/sh.c	/^gettoken(char **ps, char *es, char **q, char **eq)$/;"	f
 grep	user/grep.c	/^grep(char *pattern, int fd)$/;"	f
@@ -617,6 +651,8 @@ insl	include/x86.h	/^insl(int port, void *addr, int cnt)$/;"	f
 intena	kernel/proc.h	/^  int intena;                  \/\/ Were interrupts enabled before pushcli?$/;"	m	struct:cpu
 inum	include/fs.h	/^  ushort inum;$/;"	m	struct:dirent
 inum	kernel/file.h	/^  uint inum;          \/\/ Inode number$/;"	m	struct:inode
+inuse	include/pstat.h	/^  int inuse[NPROC];   \/\/ whether this slot of the process table is in use (1 or 0)$/;"	m	struct:pstat
+inuse	kernel/proc.h	/^  int inuse;                   \/\/ Whether the process is in use (1 or 0)$/;"	m	struct:proc
 ioapic	kernel/ioapic.c	/^struct ioapic {$/;"	s	file:
 ioapic	kernel/ioapic.c	/^volatile struct ioapic *ioapic;$/;"	v	typeref:struct:ioapic
 ioapicenable	kernel/ioapic.c	/^ioapicenable(int irq, int cpunum)$/;"	f
@@ -689,17 +725,28 @@ magic	kernel/elf.h	/^  uint magic;  \/\/ must equal ELF_MAGIC$/;"	m	struct:elfhd
 main	kernel/main.c	/^main(void)$/;"	f
 main	tools/mkfs.c	/^main(int argc, char *argv[])$/;"	f
 main	user/cat.c	/^main(int argc, char *argv[])$/;"	f
+main	user/default_tickets.c	/^main(int argc, char *argv[])$/;"	f
 main	user/echo.c	/^main(int argc, char *argv[])$/;"	f
 main	user/forktest.c	/^main(void)$/;"	f
+main	user/forktickets.c	/^main(int argc, char *argv[]){$/;"	f
+main	user/getpinfo.c	/^main(int argc, char *argv[])$/;"	f
 main	user/grep.c	/^main(int argc, char *argv[])$/;"	f
+main	user/high_sleep.c	/^main(int argc, char *argv[])$/;"	f
+main	user/high_tickets.c	/^main(int argc, char *argv[])$/;"	f
 main	user/init.c	/^main(void)$/;"	f
 main	user/kill.c	/^main(int argc, char **argv)$/;"	f
 main	user/ln.c	/^main(int argc, char *argv[])$/;"	f
 main	user/ls.c	/^main(int argc, char *argv[])$/;"	f
 main	user/mkdir.c	/^main(int argc, char *argv[])$/;"	f
+main	user/processesinuse.c	/^main(int argc, char *argv[])$/;"	f
+main	user/random.c	/^main(int argc, char *argv[])$/;"	f
 main	user/rm.c	/^main(int argc, char *argv[])$/;"	f
+main	user/setticket.c	/^main(int argc, char *argv[])$/;"	f
 main	user/sh.c	/^main(void)$/;"	f
+main	user/stress_equal.c	/^main(int argc, char *argv[])$/;"	f
+main	user/stress_manylow.c	/^main(int argc, char *argv[])$/;"	f
 main	user/stressfs.c	/^main(int argc, char *argv[])$/;"	f
+main	user/switch_tickets.c	/^main(int argc, char *argv[])$/;"	f
 main	user/tester.c	/^main(int argc, char *argv[])$/;"	f
 main	user/usertests.c	/^main(int argc, char *argv[])$/;"	f
 main	user/wc.c	/^main(int argc, char *argv[])$/;"	f
@@ -739,10 +786,12 @@ mpmain	kernel/main.c	/^mpmain(void)$/;"	f	file:
 mpproc	kernel/mp.h	/^struct mpproc {         \/\/ processor table entry$/;"	s
 mpsearch	kernel/mp.c	/^mpsearch(void)$/;"	f	file:
 mpsearch1	kernel/mp.c	/^mpsearch1(uchar *addr, int len)$/;"	f	file:
+mt	kernel/rand.c	/^static unsigned long mt[N]; \/* the array for the state vector  *\/$/;"	v	file:
+mti	kernel/rand.c	/^static int mti=N+1; \/* mti==N+1 means mt[N] is not initialized *\/$/;"	v	file:
 multiboot_entry	kernel/multiboot.S	/^multiboot_entry:$/;"	l
 multiboot_header	kernel/multiboot.S	/^multiboot_header:$/;"	l
 name	include/fs.h	/^  char name[DIRSIZ];$/;"	m	struct:dirent
-name	kernel/proc.h	/^  char name[16];               \/\/ Process name (debugging)$/;"	m	struct:proc
+name	kernel/proc.h	/^  char name[16];               \/\/ Process name (debugging) $/;"	m	struct:proc
 name	kernel/spinlock.h	/^  char *name;        \/\/ Name of lock.$/;"	m	struct:spinlock
 name	user/usertests.c	/^char name[3];$/;"	v
 name	user/usys.S	/^  name: \\$/;"	l
@@ -821,6 +870,7 @@ physaddr	kernel/mp.h	/^  void *physaddr;               \/\/ phys addr of MP conf
 picenable	kernel/picirq.c	/^picenable(int irq)$/;"	f
 picinit	kernel/picirq.c	/^picinit(void)$/;"	f
 picsetmask	kernel/picirq.c	/^picsetmask(ushort mask)$/;"	f	file:
+pid	include/pstat.h	/^  int pid[NPROC];     \/\/ the PID of each process$/;"	m	struct:pstat
 pid	kernel/proc.h	/^  volatile int pid;            \/\/ Process ID$/;"	m	struct:proc
 pinit	kernel/proc.c	/^pinit(void)$/;"	f
 pipe	kernel/file.h	/^  struct pipe *pipe;$/;"	m	struct:file	typeref:struct:file::pipe
@@ -835,6 +885,11 @@ pipewrite	kernel/pipe.c	/^pipewrite(struct pipe *p, char *addr, int n)$/;"	f
 popcli	kernel/spinlock.c	/^popcli(void)$/;"	f
 preempt	user/usertests.c	/^preempt(void)$/;"	f
 prev	kernel/buf.h	/^  struct buf *prev; \/\/ LRU cache list$/;"	m	struct:buf	typeref:struct:buf::buf
+print	user/high_sleep.c	/^void print(struct pstat *st)$/;"	f
+print	user/high_tickets.c	/^void print(struct pstat *st)$/;"	f
+print	user/stress_equal.c	/^void print(struct pstat *st)$/;"	f
+print	user/stress_manylow.c	/^void print(struct pstat *st)$/;"	f
+print	user/switch_tickets.c	/^void print(struct pstat *st)$/;"	f
 printf	user/forktest.c	/^printf(int fd, char *s, ...)$/;"	f
 printf	user/printf.c	/^printf(int fd, char *fmt, ...)$/;"	f
 printint	kernel/console.c	/^printint(int xx, int base, int sign)$/;"	f	file:
@@ -846,6 +901,7 @@ procdump	kernel/proc.c	/^procdump(void)$/;"	f
 procstate	kernel/proc.h	/^enum procstate { UNUSED, EMBRYO, SLEEPING, RUNNABLE, RUNNING, ZOMBIE };$/;"	g
 product	kernel/mp.h	/^  uchar product[20];            \/\/ product id$/;"	m	struct:mpconf
 proghdr	kernel/elf.h	/^struct proghdr {$/;"	s
+pstat	include/pstat.h	/^struct pstat {$/;"	s
 ptable	kernel/proc.c	/^} ptable;$/;"	v	typeref:struct:__anon3
 pte_t	kernel/mmu.h	/^typedef uint pte_t;$/;"	t
 ptr	user/umalloc.c	/^    union header *ptr;$/;"	m	struct:header::__anon9	typeref:union:header::__anon9::header	file:
@@ -880,6 +936,7 @@ right	user/sh.c	/^  struct cmd *right;$/;"	m	struct:pipecmd	typeref:struct:pipec
 rinode	tools/mkfs.c	/^rinode(uint inum, struct dinode *ip)$/;"	f
 rmdot	user/usertests.c	/^rmdot(void)$/;"	f
 root_inode	tools/mkfs.c	/^uint root_inode;$/;"	v
+rounds	user/random.c	8;"	d	file:
 rsect	tools/mkfs.c	/^rsect(uint sec, void *buf)$/;"	f
 rsv1	kernel/mmu.h	/^  uint rsv1 : 1;       \/\/ Reserved$/;"	m	struct:segdesc
 rsv1	kernel/mmu.h	/^  uint rsv1 : 3;        \/\/ reserved(should be zero I guess)$/;"	m	struct:gatedesc
@@ -897,7 +954,9 @@ scheduler	kernel/proc.h	/^  struct context *scheduler;   \/\/ swtch() here to en
 sector	kernel/buf.h	/^  uint sector;$/;"	m	struct:buf
 segdesc	kernel/mmu.h	/^struct segdesc {$/;"	s
 seginit	kernel/vm.c	/^seginit(void)$/;"	f
+settickets	kernel/proc.c	/^settickets(int n)$/;"	f
 setupkvm	kernel/vm.c	/^setupkvm(void)$/;"	f
+sgenrand	kernel/rand.c	/^sgenrand(unsigned long seed)$/;"	f
 sharedfd	user/usertests.c	/^sharedfd(void)$/;"	f
 shentsize	kernel/elf.h	/^  ushort shentsize;$/;"	m	struct:elfhdr
 shiftcode	kernel/kbd.h	/^static uchar shiftcode[256] =$/;"	v
@@ -920,6 +979,13 @@ specrev	kernel/mp.h	/^  uchar specrev;                \/\/ [14]$/;"	m	struct:mp
 spin	kernel/bootasm.S	/^spin:$/;"	l
 spin	kernel/bootother.S	/^spin:$/;"	l
 spin	kernel/multiboot.S	/^spin:$/;"	l
+spin	user/high_sleep.c	/^void spin()$/;"	f
+spin	user/high_tickets.c	/^void spin()$/;"	f
+spin	user/processesinuse.c	/^void spin()$/;"	f
+spin	user/random.c	/^void spin()$/;"	f
+spin	user/stress_equal.c	/^void spin()$/;"	f
+spin	user/stress_manylow.c	/^void spin()$/;"	f
+spin	user/switch_tickets.c	/^void spin()$/;"	f
 spinlock	kernel/spinlock.h	/^struct spinlock {$/;"	s
 ss	include/x86.h	/^  ushort ss;$/;"	m	struct:trapframe
 ss	kernel/mmu.h	/^  ushort ss;$/;"	m	struct:taskstate
@@ -962,6 +1028,7 @@ sys_exit	kernel/sysproc.c	/^sys_exit(void)$/;"	f
 sys_fork	kernel/sysproc.c	/^sys_fork(void)$/;"	f
 sys_fstat	kernel/sysfile.c	/^sys_fstat(void)$/;"	f
 sys_getpid	kernel/sysproc.c	/^sys_getpid(void)$/;"	f
+sys_getpinfo	kernel/sysproc.c	/^sys_getpinfo(void)$/;"	f
 sys_kill	kernel/sysproc.c	/^sys_kill(void)$/;"	f
 sys_link	kernel/sysfile.c	/^sys_link(void)$/;"	f
 sys_mkdir	kernel/sysfile.c	/^sys_mkdir(void)$/;"	f
@@ -970,6 +1037,7 @@ sys_open	kernel/sysfile.c	/^sys_open(void)$/;"	f
 sys_pipe	kernel/sysfile.c	/^sys_pipe(void)$/;"	f
 sys_read	kernel/sysfile.c	/^sys_read(void)$/;"	f
 sys_sbrk	kernel/sysproc.c	/^sys_sbrk(void)$/;"	f
+sys_settickets	kernel/sysproc.c	/^sys_settickets(void) $/;"	f
 sys_sleep	kernel/sysproc.c	/^sys_sleep(void)$/;"	f
 sys_unlink	kernel/sysfile.c	/^sys_unlink(void)$/;"	f
 sys_uptime	kernel/sysproc.c	/^sys_uptime(void)$/;"	f
@@ -981,10 +1049,17 @@ sz	kernel/proc.h	/^  uint sz;                     \/\/ Size of process memory (b
 t	kernel/mmu.h	/^  ushort t;          \/\/ Trap on task switch$/;"	m	struct:taskstate
 taskstate	kernel/mmu.h	/^struct taskstate {$/;"	s
 tf	kernel/proc.h	/^  struct trapframe *tf;        \/\/ Trap frame for current syscall$/;"	m	struct:proc	typeref:struct:proc::trapframe
+tickets	include/pstat.h	/^  int tickets[NPROC]; \/\/ the number of tickets this process has$/;"	m	struct:pstat
+tickets	kernel/proc.h	/^  int tickets;                 \/\/ Number of tickets assigned$/;"	m	struct:proc
+ticks	include/pstat.h	/^  int ticks[NPROC];   \/\/ the number of ticks each process has accumulated$/;"	m	struct:pstat
+ticks	kernel/proc.h	/^  int ticks;                   \/\/ Tracks number of ticks used$/;"	m	struct:proc
 ticks	kernel/trap.c	/^uint ticks;$/;"	v
 tickslock	kernel/trap.c	/^struct spinlock tickslock;$/;"	v	typeref:struct:spinlock
 timerinit	kernel/timer.c	/^timerinit(void)$/;"	f
 togglecode	kernel/kbd.h	/^static uchar togglecode[256] =$/;"	v
+tol	user/random.c	9;"	d	file:
+tol	user/stress_equal.c	8;"	d	file:
+tol	user/stress_manylow.c	8;"	d	file:
 trap	kernel/trap.c	/^trap(struct trapframe *tf)$/;"	f
 trapframe	include/x86.h	/^struct trapframe {$/;"	s
 trapno	include/x86.h	/^  uint trapno;$/;"	m	struct:trapframe

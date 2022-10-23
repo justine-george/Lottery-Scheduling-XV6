@@ -5,6 +5,10 @@
 #include "mmu.h"
 #include "proc.h"
 #include "sysfunc.h"
+/* The following code is added by Justine George JXG210092
+ */
+#include "pstat.h"
+/* End of code added */
 
 int
 sys_fork(void)
@@ -88,3 +92,30 @@ sys_uptime(void)
   release(&tickslock);
   return xticks;
 }
+
+/* The following code is added by Justine George JXG210092
+ */
+// set the number of tickets of the current running process
+int
+sys_settickets(void) 
+{
+  int ticketCount;
+  argint(0, &ticketCount);
+  if (ticketCount < 1)
+    return -1;
+  return settickets(ticketCount);
+}
+
+// get process statistics
+int
+sys_getpinfo(void)
+{
+  struct pstat *ps;
+  //if (argptr(0, (void*)&ps, sizeof(*ps)) < 0)
+  if (argptr(0, (void*)&ps, sizeof(*ps)) < 0)
+    return -1;
+  if (ps == NULL)
+    return -1;
+  return getpinfo(ps);
+}
+/* End of code added */
