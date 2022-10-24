@@ -730,6 +730,7 @@ main	user/echo.c	/^main(int argc, char *argv[])$/;"	f
 main	user/forktest.c	/^main(void)$/;"	f
 main	user/forktickets.c	/^main(int argc, char *argv[]){$/;"	f
 main	user/getpinfo.c	/^main(int argc, char *argv[])$/;"	f
+main	user/grapher.c	/^int main(int argc, char **argv) {$/;"	f
 main	user/grep.c	/^main(int argc, char *argv[])$/;"	f
 main	user/high_sleep.c	/^main(int argc, char *argv[])$/;"	f
 main	user/high_tickets.c	/^main(int argc, char *argv[])$/;"	f
@@ -885,6 +886,7 @@ pipewrite	kernel/pipe.c	/^pipewrite(struct pipe *p, char *addr, int n)$/;"	f
 popcli	kernel/spinlock.c	/^popcli(void)$/;"	f
 preempt	user/usertests.c	/^preempt(void)$/;"	f
 prev	kernel/buf.h	/^  struct buf *prev; \/\/ LRU cache list$/;"	m	struct:buf	typeref:struct:buf::buf
+print	user/grapher.c	/^void print(struct pstat *st) {$/;"	f
 print	user/high_sleep.c	/^void print(struct pstat *st)$/;"	f
 print	user/high_tickets.c	/^void print(struct pstat *st)$/;"	f
 print	user/stress_equal.c	/^void print(struct pstat *st)$/;"	f
@@ -979,6 +981,7 @@ specrev	kernel/mp.h	/^  uchar specrev;                \/\/ [14]$/;"	m	struct:mp
 spin	kernel/bootasm.S	/^spin:$/;"	l
 spin	kernel/bootother.S	/^spin:$/;"	l
 spin	kernel/multiboot.S	/^spin:$/;"	l
+spin	user/grapher.c	/^void spin(int factor) {$/;"	f
 spin	user/high_sleep.c	/^void spin()$/;"	f
 spin	user/high_tickets.c	/^void spin()$/;"	f
 spin	user/processesinuse.c	/^void spin()$/;"	f
