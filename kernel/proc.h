@@ -74,7 +74,7 @@ struct proc {
   struct file *ofile[NOFILE];  // Open files
   struct inode *cwd;           // Current directory
   char name[16];               // Process name (debugging) 
-  /* The following code is added by Justine George JXG210092
+  /* The following code is added by Justine George JXG210092, Gautham Shaji GXS210034
    */
   int inuse;                   // Whether the process is in use (1 or 0)
   int tickets;                 // Number of tickets assigned
