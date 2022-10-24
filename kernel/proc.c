@@ -497,7 +497,7 @@ procdump(void)
       state = states[p->state];
     else
       state = "???";
-    cprintf("%d %s %s", p->pid, state, p->name);
+    cprintf("%d %s %s %d", p->pid, state, p->name, p->tickets);
     if(p->state == SLEEPING){
       getcallerpcs((uint*)p->context->ebp+2, pc);
       for(i=0; i<10 && pc[i] != 0; i++)
@@ -514,7 +514,7 @@ int
 settickets(int n)
 {
   acquire(&ptable.lock);
-  proc->tickets = n;
+  proc->tickets = n; 
   release(&ptable.lock);
   return 0; 
 }
