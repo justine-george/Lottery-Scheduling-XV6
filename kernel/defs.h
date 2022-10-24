@@ -9,7 +9,7 @@ struct pipe;
 struct proc;
 struct spinlock;
 struct stat;
-/* The following code is added by Justine George JXG210092
+/* The following code is added by Justine George JXG210092, Gautham Shaji GXS210034
  */
 struct pstat;
 /* End of code added */
@@ -113,7 +113,7 @@ void            userinit(void);
 int             wait(void);
 void            wakeup(void*);
 void            yield(void);
-/* The following code is added by Justine George JXG210092
+/* The following code is added by Justine George JXG210092, Gautham Shaji GXS210034
  */
 int             settickets(int);
 int             getpinfo(struct pstat*);

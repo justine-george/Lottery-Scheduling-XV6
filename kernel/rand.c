@@ -1,4 +1,4 @@
-/* The following code is added by Justine George JXG210092
+/* The following code is added by Justine George JXG210092, Gautham Shaji GXS210034
  */
 /* A C-program for MT19937: Real number version                */
 /*   genrand() generates one pseudorandom real number (double) */

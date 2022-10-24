@@ -23,7 +23,7 @@
 #define SYS_sbrk   19
 #define SYS_sleep  20
 #define SYS_uptime 21
-/* The following code is added by Justine George JXG210092
+/* The following code is added by Justine George JXG210092, Gautham Shaji GXS210034
  */
 #define SYS_settickets 22
 #define SYS_getpinfo 23

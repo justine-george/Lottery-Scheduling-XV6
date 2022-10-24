@@ -5,7 +5,7 @@
 #include "x86.h"
 #include "proc.h"
 #include "spinlock.h"
-/* The following code is added by Justine George JXG210092
+/* The following code is added by Justine George JXG210092, Gautham Shaji GXS210034
  */
 #include "pstat.h"
 #include "rand.h"
@@ -104,7 +104,7 @@ userinit(void)
   p->cwd = namei("/");
 
   p->state = RUNNABLE;
-  /* The following code is added by Justine George JXG210092
+  /* The following code is added by Justine George JXG210092, Gautham Shaji GXS210034
    */
   p->inuse = 0;
   p->tickets = 1;
@@ -168,7 +168,7 @@ fork(void)
   pid = np->pid;
   np->state = RUNNABLE;
   
-  /* The following code is added by Justine George JXG210092
+  /* The following code is added by Justine George JXG210092, Gautham Shaji GXS210034
    */
   np->tickets = proc->tickets;
   np->ticks = 0;
@@ -276,7 +276,7 @@ scheduler(void)
 {
   struct proc *p;
   
-  /* The following code is added by Justine George JXG210092
+  /* The following code is added by Justine George JXG210092, Gautham Shaji GXS210034
    */
   int counter, totalTickets;
   long winner;
@@ -289,7 +289,7 @@ scheduler(void)
     // Loop over process table looking for process to run.
     acquire(&ptable.lock);
     
-    /* The following code is added by Justine George JXG210092
+    /* The following code is added by Justine George JXG210092, Gautham Shaji GXS210034
      */
     counter = 0;
     totalTickets = 0;
@@ -306,7 +306,7 @@ scheduler(void)
       if(p->state != RUNNABLE)
         continue;
       
-      /* The following code is added by Justine George JXG210092
+      /* The following code is added by Justine George JXG210092, Gautham Shaji GXS210034
        */
       counter += p->tickets;
       if(counter < winner)
@@ -320,7 +320,7 @@ scheduler(void)
       switchuvm(p);
       p->state = RUNNING;
       
-      /* The following code is added by Justine George JXG210092
+      /* The following code is added by Justine George JXG210092, Gautham Shaji GXS210034
        */
       p->inuse = 1;
       /* End of code added */
@@ -332,7 +332,7 @@ scheduler(void)
       // It should have changed its p->state before coming back.
       proc = 0;
 
-      /* The following code is added by Justine George JXG210092
+      /* The following code is added by Justine George JXG210092, Gautham Shaji GXS210034
        */
       break;      
       /* End of code added */
@@ -369,7 +369,7 @@ yield(void)
   acquire(&ptable.lock);  //DOC: yieldlock
   proc->state = RUNNABLE;
   
-  /* The following code is added by Justine George JXG210092
+  /* The following code is added by Justine George JXG210092, Gautham Shaji GXS210034
    */
   proc->ticks++;
   /* End of code added */
@@ -507,7 +507,7 @@ procdump(void)
   }
 }
 
-/* The following code is added by Justine George JXG210092
+/* The following code is added by Justine George JXG210092, Gautham Shaji GXS210034
  */
 // set the number of tickets of the current running process
 int

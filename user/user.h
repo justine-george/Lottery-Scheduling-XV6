@@ -2,7 +2,7 @@
 #define _USER_H_
 
 struct stat;
-/* The following code is added by Justine George JXG210092
+/* The following code is added by Justine George JXG210092, Gautham Shaji GXS210034
  */
 struct pstat;
 /* End of code added */
@@ -29,7 +29,7 @@ int getpid(void);
 char* sbrk(int);
 int sleep(int);
 int uptime(void);
-/* The following code is added by Justine George JXG210092
+/* The following code is added by Justine George JXG210092, Gautham Shaji GXS210034
  */
 int settickets(int);
 int getpinfo(struct pstat*);

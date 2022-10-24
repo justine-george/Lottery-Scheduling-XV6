@@ -5,7 +5,7 @@
 #include "mmu.h"
 #include "proc.h"
 #include "sysfunc.h"
-/* The following code is added by Justine George JXG210092
+/* The following code is added by Justine George JXG210092, Gautham Shaji GXS210034
  */
 #include "pstat.h"
 /* End of code added */
@@ -93,7 +93,7 @@ sys_uptime(void)
   return xticks;
 }
 
-/* The following code is added by Justine George JXG210092
+/* The following code is added by Justine George JXG210092, Gautham Shaji GXS210034
  */
 // set the number of tickets of the current running process
 int
