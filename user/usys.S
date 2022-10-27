@@ -31,6 +31,8 @@ SYSCALL(sleep)
 SYSCALL(uptime)
 /* The following code is added by Justine George JXG210092, Gautham Shaji GXS210034
  */
+// Generates assembly code that assigns value SYS_funcname to %eax register
+// and generates a system call interrupt T_SYSCALL (64)
 SYSCALL(settickets)
 SYSCALL(getpinfo)
 /* End of code added */

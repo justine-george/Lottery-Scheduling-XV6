@@ -25,6 +25,7 @@
 #define SYS_uptime 21
 /* The following code is added by Justine George JXG210092, Gautham Shaji GXS210034
  */
+// Adding system call numbers for newly added system calls
 #define SYS_settickets 22
 #define SYS_getpinfo 23
 /* End of code added */

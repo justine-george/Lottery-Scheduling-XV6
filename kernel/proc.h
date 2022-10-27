@@ -76,6 +76,7 @@ struct proc {
   char name[16];               // Process name (debugging) 
   /* The following code is added by Justine George JXG210092, Gautham Shaji GXS210034
    */
+  // Newly added variables to support the implementation of lottery scheduling
   int inuse;                   // Whether the process is in use (1 or 0)
   int tickets;                 // Number of tickets assigned
   int ticks;                   // Tracks number of ticks used

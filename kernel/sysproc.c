@@ -7,6 +7,7 @@
 #include "sysfunc.h"
 /* The following code is added by Justine George JXG210092, Gautham Shaji GXS210034
  */
+// Header file that contains struct pstat
 #include "pstat.h"
 /* End of code added */
 
@@ -95,27 +96,30 @@ sys_uptime(void)
 
 /* The following code is added by Justine George JXG210092, Gautham Shaji GXS210034
  */
-// set the number of tickets of the current running process
+// Set the number of tickets of the current running process
 int
 sys_settickets(void) 
 {
   int ticketCount;
-  argint(0, &ticketCount);
+  // Argument passed in the user level (int) is captured here
+  argint(0, &ticketCount); 
   if (ticketCount < 1)
-    return -1;
+    return -1; // return -1 on error
+  // Call kernel level function with the arguments from user level
   return settickets(ticketCount);
 }
 
-// get process statistics
+// Get process statistics
 int
 sys_getpinfo(void)
 {
   struct pstat *ps;
-  //if (argptr(0, (void*)&ps, sizeof(*ps)) < 0)
+  // Argument passed in the user level (struct pstat) is captured here
   if (argptr(0, (void*)&ps, sizeof(*ps)) < 0)
-    return -1;
+    return -1; // return -1 on error
   if (ps == NULL)
-    return -1;
-  return getpinfo(ps);
+    return -1; // return -1 if ps is NULL
+  // Call kernel level function with the arguments from user level
+  return getpinfo(ps); 
 }
 /* End of code added */

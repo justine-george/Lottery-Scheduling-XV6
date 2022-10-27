@@ -4,6 +4,7 @@
 struct stat;
 /* The following code is added by Justine George JXG210092, Gautham Shaji GXS210034
  */
+// Declaration of struct pstat
 struct pstat;
 /* End of code added */
 
@@ -31,6 +32,7 @@ int sleep(int);
 int uptime(void);
 /* The following code is added by Justine George JXG210092, Gautham Shaji GXS210034
  */
+// Function declaration for the newly created system calls
 int settickets(int);
 int getpinfo(struct pstat*);
 /* End of code added */

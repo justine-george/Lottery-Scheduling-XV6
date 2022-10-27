@@ -11,6 +11,7 @@ struct spinlock;
 struct stat;
 /* The following code is added by Justine George JXG210092, Gautham Shaji GXS210034
  */
+// declaring pstat struct
 struct pstat;
 /* End of code added */
 
@@ -115,6 +116,7 @@ void            wakeup(void*);
 void            yield(void);
 /* The following code is added by Justine George JXG210092, Gautham Shaji GXS210034
  */
+// function declaration for the newly added kernel side functions in the kernel/proc.c file
 int             settickets(int);
 int             getpinfo(struct pstat*);
 /* End of code added */

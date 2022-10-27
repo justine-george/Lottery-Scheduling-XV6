@@ -29,14 +29,14 @@
 /* see http://www.math.keio.ac.jp/matumoto/emt.html or email       */
 /* matumoto@math.keio.ac.jp                                        */
 
-/* Period parameters */  
+// Period parameters
 #define N 624
 #define M 397
 #define MATRIX_A 0x9908b0df   /* constant vector a */
 #define UPPER_MASK 0x80000000 /* most significant w-r bits */
 #define LOWER_MASK 0x7fffffff /* least significant r bits */
 
-/* Tempering parameters */   
+// Tempering parameters
 #define TEMPERING_MASK_B 0x9d2c5680
 #define TEMPERING_MASK_C 0xefc60000
 #define TEMPERING_SHIFT_U(y)  (y >> 11)
@@ -49,7 +49,7 @@
 static unsigned long mt[N]; /* the array for the state vector  */
 static int mti=N+1; /* mti==N+1 means mt[N] is not initialized */
 
-/* initializing the array with a NONZERO seed */
+// Initializing the array with a NONZERO seed
 void
 sgenrand(unsigned long seed)
 {
@@ -62,7 +62,8 @@ sgenrand(unsigned long seed)
         mt[mti] = (69069 * mt[mti-1]) & 0xffffffff;
 }
 
-long /* for integer generation */
+// For integer generation
+long
 genrand()
 {
     unsigned long y;
@@ -102,6 +103,8 @@ genrand()
 
 // Assumes 0 <= max <= RAND_MAX
 // Returns in the half-open interval [0, max]
+// This function is used to get random numbers to find
+// the winner for the lottery scheduler
 long getrand(long max) {
   unsigned long
     // max <= RAND_MAX < ULONG_MAX, so this is okay.

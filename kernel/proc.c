@@ -7,6 +7,7 @@
 #include "spinlock.h"
 /* The following code is added by Justine George JXG210092, Gautham Shaji GXS210034
  */
+// Header files for pstat struct and MT19937 random generator functions
 #include "pstat.h"
 #include "rand.h"
 /* End of code added */
@@ -106,7 +107,10 @@ userinit(void)
   p->state = RUNNABLE;
   /* The following code is added by Justine George JXG210092, Gautham Shaji GXS210034
    */
-  p->inuse = 0;
+  // Setting necessary tracking variables in proc struct for the initial process 
+  // Note that the ticket count is set as 1 initially
+  // Value of ticks is 0 initially, which is incremented after each time quantum
+  p->inuse = 0; 
   p->tickets = 1;
   p->ticks = 0;
   /* End of code added */
@@ -170,6 +174,8 @@ fork(void)
   
   /* The following code is added by Justine George JXG210092, Gautham Shaji GXS210034
    */
+  // Newly formed process out of the fork inherits its parent's tickets
+  // Value of ticks is set to 0. 
   np->tickets = proc->tickets;
   np->ticks = 0;
   /* End of code added */
@@ -278,6 +284,7 @@ scheduler(void)
   
   /* The following code is added by Justine George JXG210092, Gautham Shaji GXS210034
    */
+  // Declaring local variables
   int counter, totalTickets;
   long winner;
   /* End of code added */
@@ -287,18 +294,22 @@ scheduler(void)
     sti();
 
     // Loop over process table looking for process to run.
-    acquire(&ptable.lock);
+    acquire(&ptable.lock); // acquire lock on ptable
     
     /* The following code is added by Justine George JXG210092, Gautham Shaji GXS210034
      */
+    // All values are reset to 0 in the beginning of the loop
     counter = 0;
     totalTickets = 0;
     winner = 0;
     
+    // Iterate through the ptable and find totalTicket count of 
+    // all processes that are in RUNNABLE state
     for(p = ptable.proc; p < &ptable.proc[NPROC]; p++)
       if (p->state == RUNNABLE)
         totalTickets += p->tickets;
 
+    // Returns a random number within the range [0, totalTickets], the winner of the lottery
     winner = getrand(totalTickets); 
     /* End of code added */
 
@@ -308,9 +319,12 @@ scheduler(void)
       
       /* The following code is added by Justine George JXG210092, Gautham Shaji GXS210034
        */
+      // Add p's ticket count to counter variable
       counter += p->tickets;
       if(counter < winner)
         continue;
+      // Flow reaches here when counter exceeds or equals winner
+      // p here is the winner of the lottery
       /* End of code added */
 
       // Switch to chosen process.  It is the process's job
@@ -322,6 +336,7 @@ scheduler(void)
       
       /* The following code is added by Justine George JXG210092, Gautham Shaji GXS210034
        */
+      // Now, p is inuse  
       p->inuse = 1;
       /* End of code added */
       
@@ -334,6 +349,8 @@ scheduler(void)
 
       /* The following code is added by Justine George JXG210092, Gautham Shaji GXS210034
        */
+      // Loop has to iterate from the beginning to find the next process to run
+      // So break here
       break;      
       /* End of code added */
     }
@@ -371,6 +388,7 @@ yield(void)
   
   /* The following code is added by Justine George JXG210092, Gautham Shaji GXS210034
    */
+  // Number of ticks is incremented after one scheduling round
   proc->ticks++;
   /* End of code added */
 
@@ -497,7 +515,7 @@ procdump(void)
       state = states[p->state];
     else
       state = "???";
-    cprintf("%d %s %s %d", p->pid, state, p->name, p->tickets);
+    cprintf("%d %s %s", p->pid, state, p->name);
     if(p->state == SLEEPING){
       getcallerpcs((uint*)p->context->ebp+2, pc);
       for(i=0; i<10 && pc[i] != 0; i++)
@@ -509,30 +527,33 @@ procdump(void)
 
 /* The following code is added by Justine George JXG210092, Gautham Shaji GXS210034
  */
-// set the number of tickets of the current running process
+// Set the number of tickets of the current running process
 int
 settickets(int n)
 {
-  acquire(&ptable.lock);
+  acquire(&ptable.lock); // acquire lock on ptable
+  // Set the current process' ticket count to n
   proc->tickets = n; 
-  release(&ptable.lock);
-  return 0; 
+  release(&ptable.lock); // release lock on ptable
+  return 0; // return 0 on success
 }
 
-// get process statistics
+// Get process statistics
 int
 getpinfo(struct pstat *ps)
 {
   int i;
   struct proc *p;
-  acquire(&ptable.lock);
+  acquire(&ptable.lock); // acquire lock on ptable
+  // Iterate through the ptable and save the values of 
+  // inuse, tickets, pid and ticks to struct pstat pointer
   for(i = 0, p = ptable.proc; p < &ptable.proc[NPROC]; i++, p++) {
     ps->inuse[i] = p->inuse;
     ps->tickets[i] = p->tickets;
     ps->pid[i] = p->pid;
     ps->ticks[i] = p->ticks;
   }
-  release(&ptable.lock);
-  return 0;
+  release(&ptable.lock); // release lock on ptable
+  return 0; // return 0 on success
 }
 /* End of code added */

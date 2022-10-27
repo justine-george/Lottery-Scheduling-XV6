@@ -105,6 +105,7 @@ static int (*syscalls[])(void) = {
 [SYS_uptime]  sys_uptime,
 /* The following code is added by Justine George JXG210092, Gautham Shaji GXS210034
  */
+// Function pointer to the newly added system call handlers
 [SYS_settickets]  sys_settickets,
 [SYS_getpinfo]  sys_getpinfo,
 /* End of code added */

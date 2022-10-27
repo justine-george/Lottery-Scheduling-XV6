@@ -25,6 +25,7 @@ int sys_write(void);
 int sys_uptime(void);
 /* The following code is added by Justine George JXG210092, Gautham Shaji GXS210034
  */
+// Function definitions for the newly added system call handlers
 int sys_settickets(void);
 int sys_getpinfo(void);
 /* End of code added */
