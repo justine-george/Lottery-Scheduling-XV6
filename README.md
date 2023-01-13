@@ -3,6 +3,7 @@
 xv6 is a re-implementation of Dennis Ritchie's and Ken Thompson's Unix
 Version 6 (v6).  xv6 loosely follows the structure and style of v6,
 but is implemented for a modern x86-based multiprocessor using ANSI C.
+
 The existing round-robin scheduling algorithm in the xv6 kernel was 
 modified to implement lottery scheduling. This randomized approach 
 allows for processes to receive a proportional allocation of CPU time 
